@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "tsc --noEmit && vitest run && prettier --check .",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "build:demo": "tsc --noEmit && vite build --mode demo"
   },
   "dependencies": {
     "openapi-fetch": "^0.17.0",
