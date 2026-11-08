@@ -18,3 +18,4 @@ qata の web です。テストケースの一覧・人の確認（承認）・�
 @../qata/.claude/rules/general/parent-and-children.md
 @../qata/.claude/rules/general/rules-and-skills.md
 @../qata/.claude/rules/qata/repos-and-contracts.md
+@../qata/.claude/rules/qata/knowledge.md
