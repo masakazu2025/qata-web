@@ -2,7 +2,7 @@
 
 [qata](https://github.com/masakazu2025/qata) の web です。AI が MCP で登録したテストケースを一覧にし、元の日本語の手順と生成されたステップを見比べて承認し、実行して、ステップごとの結果とスクショを見ます。server の REST API だけを使います。
 
-契約と全体の要件は、親のリポジトリ `qata` が正です。このリポジトリは、親と同じ作業フォルダに並べて置きます（`../qata/contracts/` を読むため）。
+契約と全体の要件は、親のリポジトリ `qata` が正です。このリポジトリは、親と同じ作業フォルダに並べて置きます（`../qata/contracts/` を読むため）。親を別の場所に置くときは、環境変数 `QATA_PARENT_DIR` で親のリポジトリを指します。
 
 ```
 作業フォルダ/
@@ -11,6 +11,8 @@
 ```
 
 ## 関門
+
+pull request と main への push のたびに、GitHub Actions（`.github/workflows/ci.yml`）が下と「端から端までのテスト」を回します（端から端までは、qata-server・qata-runner の main と Windows でつなぐ）。通らないと main にマージできません。
 
 ```
 npm ci

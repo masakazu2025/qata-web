@@ -1,10 +1,11 @@
-// 親の契約（../qata/contracts/）を読んで、テストの偽の server が返すものを判定する。
+// 親の契約（既定は ../qata/contracts/、QATA_PARENT_DIR で変えられる）を読んで、テストの偽の server が返すものを判定する。
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
+import { parentDir } from "../scripts/generate-contracts.mjs";
 
-export const contractsDir = resolve(import.meta.dirname, "../../qata/contracts") + "/";
+export const contractsDir = resolve(parentDir, "contracts") + "/";
 
 export function readExample<T>(name: string): T {
   return JSON.parse(readFileSync(`${contractsDir}examples/${name}`, "utf8")) as T;

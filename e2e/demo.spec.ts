@@ -5,7 +5,7 @@ import path from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { expect, test } from "@playwright/test";
-import { dataDir, runnerUrl, serverDir, workDir } from "../playwright.config";
+import { dataDir, parentDir, runnerUrl, serverDir } from "../playwright.config";
 
 type Structured = Record<string, unknown>;
 
@@ -51,7 +51,7 @@ test("MCP で登録したテストケースを、web で承認して実行し、
 
       // 日本語の手順から AI が作るものとして、契約の例を使う
       const example = JSON.parse(
-        readFileSync(path.join(workDir, "qata/contracts/examples/testcase.add.json"), "utf-8"),
+        readFileSync(path.join(parentDir, "contracts/examples/testcase.add.json"), "utf-8"),
       );
       const testcase = { ...example, title, needs_review: true };
 
