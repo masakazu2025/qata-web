@@ -19,6 +19,25 @@ npm run check          # 型の検査・テスト（生成した型と契約・�
 
 テストの偽の server が返すものは、すべて親の契約（JSON Schema）で判定します。
 
+## 端から端までのテスト
+
+隣に並べた qata-server・qata-runner と、この web を本物どうしでつないで、デモの流れ（AI が MCP でテストケースを登録 → web で承認 → 実行 → 結果とスクショ）を一本通します。偽物を本物に置き換えるたびに、これが通り続けることを関門にします。
+
+```
+作業フォルダ/
+├── qata/
+├── qata-runner/
+├── qata-server/
+└── qata-web/      ← ここで npm run e2e
+```
+
+```
+npx playwright install chromium   # 初めてのときだけ
+npm run e2e
+```
+
+`uv` が要ります。runner・server・web は既定とは別の番号（18001・18000・15173）で立ち上げ、終わったら止めます。保存先は毎回新しく作ります。各ステップの画面は `test-results/`、まとめは `npx playwright show-report` で見られます。
+
 ## 契約から型を生成する
 
 親の `openapi.yaml` から TypeScript の型を生成し、`src/contracts/openapi.ts` に置いてコミットします。手で直しません。契約が変わったら生成し直します。生成物が契約と合っているかは `npm test` で確かめます。
