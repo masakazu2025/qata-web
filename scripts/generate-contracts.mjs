@@ -7,7 +7,9 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import openapiTS, { astToString } from "openapi-typescript";
 
 const root = resolve(import.meta.dirname, "..");
-export const contractUrl = pathToFileURL(resolve(root, "../qata/contracts/openapi.yaml"));
+// 親のリポジトリ。環境変数 QATA_PARENT_DIR で指せる。既定は隣に並べた ../qata/
+export const parentDir = resolve(process.env.QATA_PARENT_DIR || resolve(root, "../qata"));
+export const contractUrl = pathToFileURL(resolve(parentDir, "contracts/openapi.yaml"));
 export const outputPath = resolve(root, "src/contracts/openapi.ts");
 
 const HEADER =

@@ -9,6 +9,8 @@ import { defineConfig } from "@playwright/test";
 export const workDir = path.resolve(import.meta.dirname, "..");
 export const serverDir = path.join(workDir, "qata-server");
 export const runnerDir = path.join(workDir, "qata-runner");
+// 親のリポジトリ。環境変数 QATA_PARENT_DIR で指せる（runner・server にもそのまま渡る）。
+export const parentDir = path.resolve(process.env.QATA_PARENT_DIR || path.join(workDir, "qata"));
 
 export const ports = { runner: 18001, server: 18000, web: 15173 };
 export const runnerUrl = `http://127.0.0.1:${ports.runner}`;

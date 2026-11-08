@@ -1,0 +1,73 @@
+# 関門（README の「関門」と「端から端までのテスト」）を回す。通らないと main にマージできない（ブランチの保護）。
+# 親の契約を読むために、親のリポジトリを丸ごと取ってきて隣に置き、QATA_PARENT_DIR で指す。
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    name: check
+    runs-on: ubuntu-latest
+    env:
+      QATA_PARENT_DIR: ${{ github.workspace }}/parent
+    defaults:
+      run:
+        working-directory: qata-web
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: qata-web
+      - uses: actions/checkout@v5
+        with:
+          repository: masakazu2025/qata
+          path: parent
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm ci
+      - run: npm run check
+
+  # 隣に並べた qata-server・qata-runner の main とつなぐ。runner は Windows で動くので、Windows で回す。
+  e2e:
+    name: e2e
+    runs-on: windows-latest
+    env:
+      QATA_PARENT_DIR: ${{ github.workspace }}/parent
+    defaults:
+      run:
+        working-directory: qata-web
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: qata-web
+      - uses: actions/checkout@v5
+        with:
+          repository: masakazu2025/qata
+          path: parent
+      - uses: actions/checkout@v5
+        with:
+          repository: masakazu2025/qata-server
+          path: qata-server
+      - uses: actions/checkout@v5
+        with:
+          repository: masakazu2025/qata-runner
+          path: qata-runner
+      - uses: astral-sh/setup-uv@v6
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: uv sync --locked --directory ../qata-server
+      - run: uv sync --locked --directory ../qata-runner
+      - run: npm ci
+      - run: npx playwright install chromium
+      - run: npm run e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: |
+            qata-web/playwright-report/
+            qata-web/test-results/
