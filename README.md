@@ -40,6 +40,12 @@ npm run e2e
 
 `uv` が要ります。runner・server・web は既定とは別の番号（18001・18000・15173）で立ち上げ、終わったら止めます。保存先は毎回新しく作ります。各ステップの画面は `test-results/`、まとめは `npx playwright show-report` で見られます。
 
+runner の操作は既定で偽物です。本物の電卓を動かして回すときは、下を使います（手元の Windows だけ。CI はデスクトップがないので偽物のまま）。電卓を起動し、キーボードとマウスを使うので、終わるまで触らないでください。
+
+```
+npm run e2e:windows    # runner を QATA_RUNNER_OPERATOR=windows で立ち上げる
+```
+
 ## デモ版
 
 https://qata-web.vercel.app/ で、server と runner なしに画面を触れます。ブラウザの中の偽の server が契約の例を返し、スクショは本物の電卓を撮ったもの（`src/demo/`）です。登録 → 承認 → 実行 → 結果とスクショを一通り試せます。データはブラウザの中だけで、再読み込みで最初に戻ります。
