@@ -40,6 +40,17 @@ npm run e2e
 
 `uv` が要ります。runner・server・web は既定とは別の番号（18001・18000・15173）で立ち上げ、終わったら止めます。保存先は毎回新しく作ります。各ステップの画面は `test-results/`、まとめは `npx playwright show-report` で見られます。
 
+## デモ版
+
+https://qata-web.vercel.app/ で、server と runner なしに画面を触れます。ブラウザの中の偽の server が契約の例を返し、スクショは本物の電卓を撮ったもの（`src/demo/`）です。登録 → 承認 → 実行 → 結果とスクショを一通り試せます。データはブラウザの中だけで、再読み込みで最初に戻ります。
+
+```
+npm run build:demo                  # dist/ にデモ版を作る（Vercel もこれを使う、vercel.json）
+npx vite preview --mode demo        # 手元で見る
+```
+
+main に入ると Vercel が公開し直します。pull request ごとにプレビューの URL も出ます。
+
 ## 契約から型を生成する
 
 親の `openapi.yaml` から TypeScript の型を生成し、`src/contracts/openapi.ts` に置いてコミットします。手で直しません。契約が変わったら生成し直します。生成物が契約と合っているかは `npm test` で確かめます。
