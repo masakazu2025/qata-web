@@ -12,7 +12,8 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "tsc --noEmit && vitest run && prettier --check ."
+    "check": "tsc --noEmit && vitest run && prettier --check .",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "openapi-fetch": "^0.17.0",
@@ -20,6 +21,8 @@
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "@playwright/test": "^1.65.0",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.8",

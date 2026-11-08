@@ -22,6 +22,8 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     setupFiles: ["tests/setup.ts"],
+    // e2e/ は Playwright で別に回す（npm run e2e）
+    include: ["tests/**/*.test.{ts,tsx}"],
     server: { deps: { inline: [] } },
   },
 });
