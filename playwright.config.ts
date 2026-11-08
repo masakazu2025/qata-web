@@ -1,5 +1,6 @@
 // 端から端までのテスト（npm run e2e）。
-// 隣に並べた qata-server・qata-runner（偽の操作）と、この web を立ち上げてつなぐ（W3）。
+// 隣に並べた qata-server・qata-runner と、この web を立ち上げてつなぐ（W3）。
+// runner の操作は既定で偽物。QATA_RUNNER_OPERATOR=windows で本物の電卓を動かす（npm run e2e:windows、W5）。
 // 開発で立ち上げたものとぶつからないように、既定とは別の番号で待ち受ける。
 import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -13,6 +14,7 @@ export const runnerDir = path.join(workDir, "qata-runner");
 export const parentDir = path.resolve(process.env.QATA_PARENT_DIR || path.join(workDir, "qata"));
 
 export const ports = { runner: 18001, server: 18000, web: 15173 };
+const runnerOperator = process.env.QATA_RUNNER_OPERATOR || "fake";
 export const runnerUrl = `http://127.0.0.1:${ports.runner}`;
 const serverUrl = `http://127.0.0.1:${ports.server}`;
 const webUrl = `http://127.0.0.1:${ports.web}`;
@@ -32,7 +34,7 @@ export default defineConfig({
       name: "runner",
       command: `uv run --directory "${runnerDir}" qata-runner`,
       url: `${runnerUrl}/openapi.json`,
-      env: { QATA_RUNNER_PORT: String(ports.runner) },
+      env: { QATA_RUNNER_PORT: String(ports.runner), QATA_RUNNER_OPERATOR: runnerOperator },
       timeout: 120_000,
       reuseExistingServer: false,
     },

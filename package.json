@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "check": "tsc --noEmit && vitest run && prettier --check .",
     "e2e": "playwright test",
+    "e2e:windows": "node scripts/e2e-windows.mjs",
     "build:demo": "tsc --noEmit && vite build --mode demo"
   },
   "dependencies": {
