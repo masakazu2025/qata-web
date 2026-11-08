@@ -8,14 +8,18 @@ import { DemoApp, createDemo } from "../src/demo";
 import { contractsDir } from "./contract";
 
 const demoDir = resolve("src/demo");
+// 改行は git の設定で CRLF にも LF にもなるので、そろえて比べる。
+const readText = (path: string) => readFileSync(path, "utf8").replace(/
+/g, "
+");
 
 describe("デモ版に写したもの", () => {
   it("data/ のファイルは、親の契約の例とまったく同じ", () => {
     const files = readdirSync(`${demoDir}/data`);
     expect(files.length).toBeGreaterThan(0);
     for (const file of files) {
-      const copied = readFileSync(`${demoDir}/data/${file}`, "utf8");
-      expect(copied, file).toBe(readFileSync(`${contractsDir}examples/${file}`, "utf8"));
+      const copied = readText(`${demoDir}/data/${file}`);
+      expect(copied, file).toBe(readText(`${contractsDir}examples/${file}`));
     }
   });
 
