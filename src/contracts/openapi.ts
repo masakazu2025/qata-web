@@ -635,7 +635,7 @@ export interface operations {
                 };
             };
             404: components["responses"]["not_found"];
-            /** @description 人の確認待ち（review_status が pending）で実行できない */
+            /** @description いまは実行できない。人の確認待ち（review_status が pending、error.code は review_pending）か、登録のあとで部品の辞書が変わり、いまの辞書に合わない（error.code は testcase_out_of_date） */
             409: {
                 headers: {
                     [name: string]: unknown;
