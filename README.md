@@ -10,6 +10,8 @@
 └── qata-web/      ← ここ
 ```
 
+やることは、このリポジトリの GitHub の issue で管理しています。部品をまたぐものと全体の判断は、親の [qata の issue](https://github.com/masakazu2025/qata/issues) に置きます。
+
 ## 関門
 
 pull request と main への push のたびに、GitHub Actions（`.github/workflows/ci.yml`）が下と「端から端までのテスト」を回します（端から端までは、qata-server・qata-runner の main と Windows でつなぐ）。通らないと main にマージできません。
